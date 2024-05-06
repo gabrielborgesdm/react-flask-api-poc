@@ -14,4 +14,10 @@ This POC was developed do demonstrate the CI/CD Github actions working together 
 1. AWS Elastic Beanstalk for Flask
 2. AWS RDS for Postgress
 3. AWS Amplify for the React web app
-4. Local Stack was used for AWS local development
+4. Docker was used for AWS local development
+
+## Installation
+
+### Backend
+1. Make sure to have both docker and docker-compose installed
+2. Run `docker compose up` inside of the backend directory.

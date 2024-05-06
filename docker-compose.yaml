@@ -1,0 +1,15 @@
+networks:
+  my_network:
+    external: true
+
+services:
+  python_backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - FLASK_ENV=development  # Set Flask environment to development
+    networks:
+      - my_network
