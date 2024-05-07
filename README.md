@@ -40,9 +40,7 @@ If you want to see your database on PgAdmin, you'll need to follow a few steps:
 ## Backend
 
 1. Copy the .env-example to a .env file inside of the backend folder and replace its variables with yours
-2. Go to alembic.ini and replace `sqlalchemy.url`with your db configuration as well, so it can run the db migrations
-    - **OBS:** if you are running this outside of the docker container, you might want to replace the db host name to localhost, since it's outside of the docker network
-    
+
 
 # References
 1. The database docker configuration was retrieved from [khezen/compose-postgres](https://github.com/khezen/compose-postgres/tree/master)
