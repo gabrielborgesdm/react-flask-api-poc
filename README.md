@@ -18,6 +18,37 @@ This POC was developed do demonstrate the CI/CD Github actions working together 
 
 ## Installation
 
-### Backend
-1. Make sure to have both docker and docker-compose installed
-2. Run `docker compose up` inside of the backend directory.
+Docker is being used to run the backend, frontend, database and even the database manager (PgAdmin). In order to install it make sure to have both docker and docker-compose installed.
+
+To start the services run `docker compose up`
+
+### PgAdmin
+If you want to see your database on PgAdmin, you'll need to follow a few steps:
+
+1. Access to PgAdmin:
+    - **URL:** http://localhost:5050
+    - **Username:** pgadmin4@pgadmin.org
+    - **Password:** admin
+
+2. Add a new server in PgAdmin:
+    - **Host:** name/address postgres
+    - **Port:** 5432
+    - **Username:** postgres
+    - **Password:** changeme
+
+
+## Backend
+
+1. Copy the .env-example to a .env file inside of the backend folder and replace its variables with yours
+2. Go to alembic.ini and replace `sqlalchemy.url`with your db configuration as well, so it can run the db migrations
+    - **OBS:** if you are running this outside of the docker container, you might want to replace the db host name to localhost, since it's outside of the docker network
+    
+
+# References
+1. The database docker configuration was retrieved from [khezen/compose-postgres](https://github.com/khezen/compose-postgres/tree/master)
+
+# Useful commands
+
+## Generate and run migrations
+1. flask db migrate -m "Your migration message"
+2. flask db upgrade
