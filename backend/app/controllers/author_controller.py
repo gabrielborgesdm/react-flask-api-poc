@@ -1,5 +1,5 @@
 from flask import Blueprint
-from app.services.management_service import ManagementService
+from backend.app.services.management_service import ManagementService
 
 blueprint = Blueprint("authors", __name__, url_prefix="/authors")
 management_service = ManagementService()

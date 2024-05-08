@@ -1,5 +1,5 @@
-from app.models.model import db
-from app.models.book_author_model import BookAuthor
+from backend.app.models.model import db
+from backend.app.models.book_author_model import BookAuthor
 
 
 class BookModel(db.Model):

@@ -1,6 +1,6 @@
-from app.models.author_model import AuthorModel
-from app.models.book_model import BookModel
-from app.dtos.book_dto import BookCreateDto
+from backend.app.models.author_model import AuthorModel
+from backend.app.models.book_model import BookModel
+from backend.app.dtos.book_dto import BookCreateDto
 
 
 class ManagementService:

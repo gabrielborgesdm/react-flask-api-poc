@@ -1,4 +1,4 @@
-from app.models.model import db
+from backend.app.models.model import db
 
 BookAuthor = db.Table(
     "BookAuthor",

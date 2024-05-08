@@ -2,7 +2,7 @@ from typing import List, Optional
 from pydantic import BaseModel, field_validator
 from werkzeug.exceptions import BadRequest
 
-from app.dtos.author_dto import AuthorDto
+from backend.app.dtos.author_dto import AuthorDto
 
 
 class AuthorFindOrCreateDto(BaseModel):

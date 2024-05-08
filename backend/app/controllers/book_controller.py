@@ -1,8 +1,8 @@
 from flask import Blueprint
 from flask_pydantic import validate
 
-from app.services.management_service import ManagementService
-from app.dtos.book_dto import BookCreateDto
+from backend.app.services.management_service import ManagementService
+from backend.app.dtos.book_dto import BookCreateDto
 
 
 blueprint = Blueprint("books", __name__, url_prefix="/books")
