@@ -10,4 +10,4 @@ class BookModel(db.Model):
     email = db.Column(db.String(320), nullable=True)
     nationality = db.Column(db.String(100), nullable=False)
     birthDate = db.Column(db.Date, nullable=False)
-    authors = db.relationship("AuthorModel", secondary=BookAuthor, backref="Book")
+    authors = db.relationship("AuthorModel", secondary=BookAuthor, back_populates="books")

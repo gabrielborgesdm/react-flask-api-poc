@@ -1,8 +1,17 @@
 from datetime import date
-from pydantic import BaseModel
+from typing import Optional
+from pydantic import BaseModel, EmailStr, Field
 
 
-class AuthorDto(BaseModel):
-    name: str
+class AuthorCreateDto(BaseModel):
+    name: str = Field(max_length=300)
+    email: Optional[EmailStr] = Field(max_length=320)
+    nationality: Optional[str] = Field(max_length=100)
     birthDate: date
-    nationality: str
+
+
+class AuthorResponseDto(BaseModel):
+    name: str
+    email: Optional[str]
+    nationality: Optional[str]
+    birthDate: date
