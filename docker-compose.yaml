@@ -12,11 +12,12 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - ./backend:/app
+      - ./backend:/backend
     environment:
       - FLASK_ENV=development  # Set Flask environment to development
     networks:
       - my_network
+    command: python3 -m flask --app main run --debug --host=0.0.0.0
 
   postgres:
     container_name: postgres_container

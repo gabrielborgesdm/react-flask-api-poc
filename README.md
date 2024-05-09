@@ -48,5 +48,5 @@ If you want to see your database on PgAdmin, you'll need to follow a few steps:
 # Useful commands
 
 ## Generate and run migrations
-1. flask db migrate -m "Your migration message"
-2. flask db upgrade
+1. python3 -m flask --app main db migrate -m "Your migration message"
+2. python3 -m flask --app main db upgrade

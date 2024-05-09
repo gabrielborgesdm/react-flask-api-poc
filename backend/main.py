@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_migrate import Migrate
+from backend.app.handlers.http_error_handler import handle_exception
 from backend.config import Config
 from backend.app.models.model import db
 
@@ -12,10 +13,9 @@ app.config.from_object(Config)
 
 
 app.register_blueprint(books_bp)
+db.init_app(app)
 app.register_blueprint(authors_bp)
 
-migrate = Migrate(app, db)
+app.register_error_handler(400, handle_exception)
 
-if __name__ == "__main__":
-    db.init_app(app)
-    app.run()
+migrate = Migrate(app, db)
