@@ -1,0 +1,17 @@
+name: Backend Workflow
+
+on: 
+    push:
+    workflow_dispatch:
+
+jobs:
+  Backend-Pipeline:
+    runs-on: ubuntu-latest
+    defaults:
+        run:
+          working-directory: ./backend
+    steps:
+        - name: Black Code Formatter
+          uses: lgeiger/black-action@v1.0.1
+
+    
