@@ -28,7 +28,9 @@ class TestBookController(unittest.TestCase):
             mock_get_books.assert_called_once()
 
     @patch("backend.app.services.management_service.ManagementService.create_book")
-    def test_create_book_Should_return_bad_request_When_author_is_empty(self, mock_create_book):
+    def test_create_book_Should_return_bad_request_When_author_is_empty(
+        self, mock_create_book
+    ):
         books_mock_result = {"title": "Book 1"}
         mock_create_book.return_value = books_mock_result
 
@@ -47,7 +49,9 @@ class TestBookController(unittest.TestCase):
         mock_create_book.return_value = books_mock_result
 
         with app.test_client() as client:
-            response = client.post("/books/", json=book_create_with_existent_author_id_mock)
+            response = client.post(
+                "/books/", json=book_create_with_existent_author_id_mock
+            )
 
             self.assertEqual(response.status_code, 201)
 

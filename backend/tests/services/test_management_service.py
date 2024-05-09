@@ -10,8 +10,11 @@ from backend.tests.mocks.author_mock import author_mock
 class TestManagementService(unittest.TestCase):
 
     @patch("backend.app.models.author_model.AuthorModel.query", create=True)
-    def test_get_authors_Should_succeed(self, mock_query):
-        books_mock_result = [AuthorResponseDto(**author_mock), AuthorResponseDto(**author_mock)]
+    def test_get_authors_should_succeed(self, mock_query):
+        books_mock_result = [
+            AuthorResponseDto(**author_mock),
+            AuthorResponseDto(**author_mock),
+        ]
         mock_query.all.return_value = books_mock_result
 
         response = ManagementService().get_authors()

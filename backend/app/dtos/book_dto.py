@@ -23,7 +23,9 @@ class BookCreateDto(BaseModel):
 
         for item in v:
             if not item.existentAuthorId and not item.authorCreationPayload:
-                raise BadRequest("existentAuthorId or authorCreationPayload is required")
+                raise BadRequest(
+                    "existentAuthorId or authorCreationPayload is required"
+                )
 
         return v
 
