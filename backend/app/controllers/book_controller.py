@@ -1,8 +1,8 @@
 from flask import Blueprint
 from flask_pydantic import validate
 
-from backend.app.services.management_service import ManagementService
 from backend.app.dtos.book_dto import BookCreateDto
+from backend.app.services.management_service import ManagementService
 
 
 blueprint = Blueprint("books", __name__, url_prefix="/books")
@@ -19,7 +19,6 @@ def get_all():
 @blueprint.route("/", methods=["POST"])
 @validate()
 def create(body: BookCreateDto):
-    # book = BookDtoCreate(**request.json)
-    # books = management_service.get_books()
+    book = management_service.create_book(body)
 
-    return "", 200
+    return book, 201
