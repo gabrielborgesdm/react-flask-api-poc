@@ -11,7 +11,7 @@ from backend.tests.mocks.books_mock import (
 class TestBookController(unittest.TestCase):
 
     @patch("backend.app.services.management_service.ManagementService.get_books")
-    def test_get_all_Should_succeed(self, mock_get_books):
+    def test_get_all_should_succeed(self, mock_get_books):
         books_mock_result = [{"title": "Book 1"}, {"title": "Book 2"}]
         mock_get_books.return_value = books_mock_result
 
@@ -28,7 +28,7 @@ class TestBookController(unittest.TestCase):
             mock_get_books.assert_called_once()
 
     @patch("backend.app.services.management_service.ManagementService.create_book")
-    def test_create_book_Should_return_bad_request_When_author_is_empty(
+    def test_create_book_should_return_bad_request_when_author_is_empty(
         self, mock_create_book
     ):
         books_mock_result = {"title": "Book 1"}
@@ -44,7 +44,7 @@ class TestBookController(unittest.TestCase):
             )
 
     @patch("backend.app.services.management_service.ManagementService.create_book")
-    def test_create_book_Should_succeed(self, mock_create_book):
+    def test_create_book_should_succeed(self, mock_create_book):
         books_mock_result = {"title": "Book 1"}
         mock_create_book.return_value = books_mock_result
 
