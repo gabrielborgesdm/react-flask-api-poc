@@ -16,11 +16,16 @@ This POC was developed do demonstrate the CI/CD Github actions working together 
 3. AWS Amplify for the React web app
 4. Docker was used for AWS local development
 
+
+
 ## Installation
 
-Docker is being used to run the backend, frontend, database and even the database manager (PgAdmin). In order to install it make sure to have both docker and docker-compose installed.
+1. Install and set up the backend, follow the instructions in the [`backend/README.md`](./backend/README.md) file.
 
-To start the services run `docker compose up`
+2. Docker is being used to run the backend, frontend, database and even the database manager (PgAdmin). In order to install it make sure to have both docker and docker-compose installed.
+
+3. To start the services run `docker compose up`
+
 
 ### PgAdmin
 If you want to see your database on PgAdmin, you'll need to follow a few steps:
@@ -36,17 +41,5 @@ If you want to see your database on PgAdmin, you'll need to follow a few steps:
     - **Username:** postgres
     - **Password:** changeme
 
-
-## Backend
-
-1. Copy the .env-example to a .env file inside of the backend folder and replace its variables with yours
-
-
 # References
 1. The database docker configuration was retrieved from [khezen/compose-postgres](https://github.com/khezen/compose-postgres/tree/master)
-
-# Useful commands
-
-## Generate and run migrations
-1. python3 -m flask --app main db migrate -m "Your migration message"
-2. python3 -m flask --app main db upgrade
