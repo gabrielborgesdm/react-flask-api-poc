@@ -1,5 +1,5 @@
 from typing import List, Optional
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, Field, field_validator
 from werkzeug.exceptions import BadRequest
 
 from backend.app.dtos.author_dto import AuthorCreateDto, AuthorResponseDto
@@ -11,7 +11,7 @@ class AuthorFindOrCreateDto(BaseModel):
 
 
 class BookCreateDto(BaseModel):
-    title: str
+    title: str = Field(max_length=300)
     authors: List[AuthorFindOrCreateDto]
     pages: int
 
@@ -23,9 +23,7 @@ class BookCreateDto(BaseModel):
 
         for item in v:
             if not item.existentAuthorId and not item.authorCreationPayload:
-                raise BadRequest(
-                    "existentAuthorId or authorCreationPayload is required"
-                )
+                raise BadRequest("existentAuthorId or authorCreationPayload is required")
 
         return v
 

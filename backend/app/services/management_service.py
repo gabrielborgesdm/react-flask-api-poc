@@ -24,6 +24,7 @@ class ManagementService:
             db.session.commit()
 
     def create_book(self, book: BookCreateDto):
+        print(book)
         with db.session.begin():
             books = BookModel.query.all()
 

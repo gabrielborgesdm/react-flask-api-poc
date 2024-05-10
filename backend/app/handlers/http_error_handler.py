@@ -1,5 +1,4 @@
 from flask import json
-from werkzeug.exceptions import HTTPException
 
 
 def handle_exception(e):
