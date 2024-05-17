@@ -1,8 +1,8 @@
-from flask import Blueprint
-from flask_pydantic import validate
+from flask import Blueprint, g
 
-from backend.app.dtos.author_dto import AuthorCreateDto
+from backend.app.decorators.validation_decorator import validate_schema
 from backend.app.services.management_service import ManagementService
+from backend.app.schemas.author_schema import author_create_schema
 
 
 blueprint = Blueprint("authors", __name__, url_prefix="/authors")
@@ -17,8 +17,8 @@ def get_all():
 
 
 @blueprint.route("/", methods=["POST"])
-@validate()
-def create(body: AuthorCreateDto):
-    management_service.create_author(body)
+@validate_schema(author_create_schema)
+def create():
+    author = management_service.create_author(g.validated_data)
 
-    return body.__dict__, 201
+    return author, 201

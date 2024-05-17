@@ -1,7 +1,7 @@
 name: Pylint
 on: [push]
 jobs:
-  Backend-Pipeline:
+  Backend-Linter:
     runs-on: ubuntu-latest
     env:
         PYTHON_VERSION: "3.10.12"
