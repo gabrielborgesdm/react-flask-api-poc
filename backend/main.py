@@ -1,7 +1,9 @@
 from flask import Flask
+from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from backend.app.handlers.http_error_handler import handle_exception
 from backend.config import Config
+
 from backend.app.models.model import db
 
 from backend.app.controllers.book_controller import blueprint as books_bp
@@ -19,3 +21,4 @@ app.register_blueprint(authors_bp)
 app.register_error_handler(400, handle_exception)
 
 migrate = Migrate(app, db)
+ma = Marshmallow(app)
