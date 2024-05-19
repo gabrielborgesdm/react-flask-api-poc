@@ -1,4 +1,6 @@
 from datetime import date
+from werkzeug.exceptions import BadRequest
+
 from backend.tests.conftest import BaseTestCase
 from backend.tests.mocks.author_mock import author_create_mock, author_create_without_name_mock
 from backend.tests.mocks.mock_utils import get_mock_with_custom_args
@@ -17,8 +19,6 @@ book_mock = get_book_with_authors([{"authorCreationPayload": author_mock}])
 
 class TestCreateBook(BaseTestCase):
     def test_should_create_book_and_its_author(self):
-        self.assertEqual(len(management_service.get_authors()), 0)
-
         book = management_service.create_book(book_mock)
 
         self.assertEqual(len(management_service.get_authors()), 1)
@@ -26,9 +26,14 @@ class TestCreateBook(BaseTestCase):
         self.assertEqual(book.get("title"), book_mock.get("title"))
         self.assertEqual(book.get("pages"), book_mock.get("pages"))
 
-    def test_should_create_book_and_find_a_created_author(self):
+    def test_should_throw_when_author_is_inexistent(self):
         self.assertEqual(len(management_service.get_authors()), 0)
 
+        with self.assertRaises(BadRequest):
+            book_with_inexistent_author_mock = get_book_with_authors([{"existentAuthorId": 1}])
+            management_service.create_book(book_with_inexistent_author_mock)
+
+    def test_should_create_book_and_find_a_created_author(self):
         author = management_service.create_author(author_mock)
 
         self.assertIsNotNone(author.get("id"))
