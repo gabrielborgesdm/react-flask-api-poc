@@ -2,10 +2,7 @@ import unittest
 from unittest.mock import patch
 
 from backend.tests.conftest import app
-from backend.tests.mocks.books_mock import (
-    book_create_with_invalid_author_mock,
-    book_create_with_existent_author_id_mock,
-)
+from backend.tests.mocks.books_mock import book_create_with_invalid_author_mock, book_create_mock
 
 
 class TestGetBooks(unittest.TestCase):
@@ -48,7 +45,7 @@ class TestCreateBook(unittest.TestCase):
         mock_create_book.return_value = books_mock_result
 
         with app.test_client() as client:
-            response = client.post("/books/", json=book_create_with_existent_author_id_mock)
+            response = client.post("/books/", json=book_create_mock)
 
             self.assertEqual(response.status_code, 201)
 
