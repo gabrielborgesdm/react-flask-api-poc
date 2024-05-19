@@ -21,22 +21,21 @@ app.register_error_handler(400, handle_exception)
 
 
 class BaseTestCase(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.app = app
+        cls.app_context = cls.app.app_context()
+        cls.app_context.push()
+        cls.db = db
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.app_context.pop()
+
     def setUp(self):
         self.db.session.close()
         self.reset_db()
 
-    @classmethod
     def reset_db(self):
         self.db.drop_all()
         self.db.create_all()
-
-    @classmethod
-    def setUpClass(self):
-        self.app = app
-        self.app_context = self.app.app_context()
-        self.app_context.push()
-        self.db = db
-
-    @classmethod
-    def tearDownClass(self):
-        self.app_context.pop()
