@@ -10,24 +10,23 @@ from backend.app.schemas.book_schema import AuthorFindOrCreateSchema, books_sche
 
 class ManagementService:
     def get_authors(self):
-        authors = AuthorModel.query.all()
-
+        authors = db.session.query(AuthorModel).all()
         return authors_schema.dump(authors)
 
     def get_books(self):
-        books = BookModel.query.all()
-
+        books = db.session.query(BookModel).all()
         return books_schema.dump(books)
 
     def create_author(self, author_data: Dict) -> AuthorSchema:
-        with db.session.begin():
+        with db.session.begin(True):
             author = AuthorModel(**author_data)
             db.session.add(author)
         return author_schema.dump(author)
 
     def create_book(self, book_dto: Dict):
-        with db.session.begin():
+        with db.session.begin(True):
             authors = self._get_authors_for_book_creation(book_dto.get("authors"))
+
             del book_dto["authors"]
             book = BookModel(**book_dto)
             book.authors = authors
@@ -47,7 +46,7 @@ class ManagementService:
         if existent_id is None:
             return AuthorModel(**author_dto.get("authorCreationPayload"))
 
-        author = AuthorModel.query.get(existent_id)
+        author = db.session.get(AuthorModel, existent_id)
         if author is None:
             raise BadRequest(f"author of id {existent_id} was not found")
 
