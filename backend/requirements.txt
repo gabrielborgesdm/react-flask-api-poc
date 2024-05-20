@@ -20,6 +20,7 @@ exceptiongroup==1.2.1
 flake8==7.0.0
 flake8-black==0.3.6
 Flask==3.0.3
+Flask-Cors==4.0.1
 flask-marshmallow==1.2.1
 Flask-Migrate==4.0.7
 flask-openapi3==3.1.1
