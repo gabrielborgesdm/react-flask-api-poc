@@ -8,11 +8,17 @@ import {
 import Books from 'pages/Books/Books';
 import './index.css';
 import { Navbar } from 'components/Navbar/Navbar';
+import Authors from 'pages/Authors/Authors';
+import Layout from 'components/Layout';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Books />,
+    element: <Layout element={<Books />} />,
+  },
+  {
+    path: "/authors",
+    element: <Layout element={<Authors />} />,
   },
 ]);
 
@@ -22,7 +28,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <Navbar />
     <RouterProvider router={router} />
   </React.StrictMode>
 );

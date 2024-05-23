@@ -1,26 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Book } from 'types/book';
 import ManagementService from 'services/managementService';
 import { useFilterHook } from 'components/Hooks/UseFilterHook';
+import { Author } from 'types/author';
 
 const managementService = new ManagementService()
 
 
-const Books: React.FC = () => {
-    const [books, setBooks] = useState<Book[]>([])
+const Authors: React.FC = () => {
+    const [authors, setAuthors] = useState<Author[]>([])
     const { handleChangeFilter, shouldFilterInWith } = useFilterHook();
 
     useEffect(() => {
-        loadBooks()
+        loadAuthors()
     }, [])
 
-    const loadBooks = async () => {
-        const books = await managementService.getBooks()
-        books.forEach(book => {
-            book.authorsNames = book.authors.map(author => author.name).join(";  ")
-        })
+    const loadAuthors = async () => {
+        const authors = await managementService.getAuthors()
 
-        setBooks(books)
+        setAuthors(authors)
     }
 
 
@@ -37,7 +34,7 @@ const Books: React.FC = () => {
                     <input type="text" id="table-search" onChange={handleChangeFilter} className="block py-3 ps-10 text-sm border rounded-lg w-80 focus:ring-blue-500 focus:border-blue-500 " placeholder="Search for items" />
                 </div>
                 <button className="max-sm:w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    + Add book
+                    + Add author
                 </button>
             </div>
             <hr />
@@ -46,30 +43,34 @@ const Books: React.FC = () => {
                     <tr>
 
                         <th scope="col" className="px-1 py-3">
-                            Book title
+                            Author
                         </th>
                         <th scope="col" className="px-1 py-3">
-                            Pages
+                            Nationality
                         </th>
                         <th scope="col" className="px-1 py-3">
-                            Authors
+                            Birth date
+                        </th>
+                        <th scope="col" className="px-1 py-3">
+                            E-mail
                         </th>
                     </tr>
                 </thead>
-                <tbody>{books?.length > 0 && books.map(({ id, title, pages, authorsNames }: Book) => (
-                    shouldFilterInWith(title, pages, id, authorsNames)
+                <tbody>{authors?.length > 0 && authors.map(({ name, nationality, birthDate, email, id }: Author) => (
+                    shouldFilterInWith(name, nationality, birthDate, email, id)
                     && (
                         <tr key={id} className="border-b hover:bg-gray-50">
                             <th scope="row" className="px-1 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                {title}
+                                {name}
                             </th>
                             <td className="px-1 py-4">
-                                {Number.isInteger(pages) ? `${pages} pages` : "Not informed"}
+                                {nationality}
                             </td>
                             <td className="px-1 py-4">
-                                {
-                                    <span className='block max-w-52 truncate'>{authorsNames}</span>
-                                }
+                                {birthDate}
+                            </td>
+                            <td className="px-1 py-4">
+                                {email}
                             </td>
                         </tr>
                     )
@@ -79,4 +80,4 @@ const Books: React.FC = () => {
     );
 };
 
-export default Books;
+export default Authors;
