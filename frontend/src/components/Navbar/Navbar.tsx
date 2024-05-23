@@ -1,12 +1,25 @@
 import React, { useState } from "react";
+import { useLocation } from 'react-router-dom';
 
 export const Navbar: React.FC = () => {
+
+    const location = useLocation();
 
     const [nav, setNav] = useState(false);
 
     const handleNav = () => {
         setNav(!nav);
     };
+
+    const verifyCurrentRouteAndApplyStylingClasses = (path: string) => {
+        console.log(location.pathname)
+        if (location.pathname === path) {
+            return "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+        }
+
+        return "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+    }
+
 
     return (
         <nav className="bg-gray-800">
@@ -31,8 +44,8 @@ export const Navbar: React.FC = () => {
                         <span className="flex flex-shrink-0 items-center text-white">Book's Manager</span>
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
-                                <a href="/" className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Books</a>
-                                <a href="/authors" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Authors</a>
+                                <a href="/" className={verifyCurrentRouteAndApplyStylingClasses("/")} aria-current="page">Books</a>
+                                <a href="/authors" className={verifyCurrentRouteAndApplyStylingClasses("/authors")}>Authors</a>
                             </div>
                         </div>
                     </div>
