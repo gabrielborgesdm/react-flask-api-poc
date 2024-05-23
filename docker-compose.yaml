@@ -15,9 +15,22 @@ services:
       - ./backend:/backend
     environment:
       - FLASK_ENV=development
+      - DATABASE_URI=postgresql://postgres:changeme@postgres:5432/postgres
+
     networks:
       - my_network
     command: python3 -m flask --app main run --debug --host=0.0.0.0
+
+  react_frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/frontend
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000
+    networks:
+      - my_network
 
   postgres:
     container_name: postgres_container
