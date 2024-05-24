@@ -41,41 +41,44 @@ const Books: React.FC = () => {
                 </button>
             </div>
             <hr />
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead className="text-xs uppercase ">
-                    <tr>
+            <div className='block max-h-[78dvh] overflow-y-auto'>
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <thead className="text-xs uppercase ">
+                        <tr>
 
-                        <th scope="col" className="px-1 py-3">
-                            Book title
-                        </th>
-                        <th scope="col" className="px-1 py-3">
-                            Pages
-                        </th>
-                        <th scope="col" className="px-1 py-3">
-                            Authors
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>{books?.length > 0 && books.map(({ id, title, pages, authorsNames }: Book) => (
-                    shouldFilterInWith(title, pages, id, authorsNames)
-                    && (
-                        <tr key={id} className="border-b hover:bg-gray-50">
-                            <th scope="row" className="px-1 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                {title}
+                            <th scope="col" className="px-1 py-3">
+                                Book title
                             </th>
-                            <td className="px-1 py-4">
-                                {Number.isInteger(pages) ? `${pages} pages` : "Not informed"}
-                            </td>
-                            <td className="px-1 py-4">
-                                {
-                                    <span className='block max-w-52 truncate'>{authorsNames}</span>
-                                }
-                            </td>
+                            <th scope="col" className="px-1 py-3">
+                                Pages
+                            </th>
+                            <th scope="col" className="px-1 py-3">
+                                Authors
+                            </th>
                         </tr>
-                    )
-                ))}</tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {books?.length > 0 && books.map(({ id, title, pages, authorsNames }: Book) => (
+                            shouldFilterInWith(title, pages, id, authorsNames) && (
+                                <tr key={id} className="border-b hover:bg-gray-50">
+                                    <th scope="row" className="px-1 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                        {title}
+                                    </th>
+                                    <td className="px-1 py-4">
+                                        {Number.isInteger(pages) ? `${pages} pages` : "Not informed"}
+                                    </td>
+                                    <td className="px-1 py-4">
+                                        {
+                                            <span className='block max-w-52 truncate'>{authorsNames}</span>
+                                        }
+                                    </td>
+                                </tr>
+                            )
+                        ))}
+                    </tbody>
+                </table >
+            </div>
+        </div >
     );
 };
 
