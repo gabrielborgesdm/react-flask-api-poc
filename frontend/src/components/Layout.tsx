@@ -1,13 +1,10 @@
+import { Outlet } from "react-router-dom";
 import { Navbar } from "./Navbar/Navbar";
 
-interface LayoutProps {
-    element: React.ReactNode;
-}
-
-const Layout: React.FC<LayoutProps> = ({ element }) => (
+const Layout: React.FC = () => (
     <>
         <Navbar />
-        {element}
+        <Outlet />
     </>
 );
 

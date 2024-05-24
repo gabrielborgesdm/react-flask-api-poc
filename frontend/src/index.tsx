@@ -6,20 +6,27 @@ import {
 } from "react-router-dom";
 
 import Books from 'pages/Books/Books';
-import './index.css';
-import { Navbar } from 'components/Navbar/Navbar';
 import Authors from 'pages/Authors/Authors';
 import Layout from 'components/Layout';
+
+import './index.css';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout element={<Books />} />,
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <Books />,
+      },
+      {
+        path: "authors",
+        element: <Authors />,
+      },
+    ]
   },
-  {
-    path: "/authors",
-    element: <Layout element={<Authors />} />,
-  },
+
 ]);
 
 const root = ReactDOM.createRoot(
