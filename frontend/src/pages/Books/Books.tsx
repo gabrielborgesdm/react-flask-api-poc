@@ -25,7 +25,7 @@ const Books: React.FC = () => {
 
 
     return (
-        <div className="sm:rounded-lg w-1/2 mx-auto mt-4">
+        <>
             <div className="flex items-center py-2 justify-between">
                 <label htmlFor="table-search" className="sr-only">Search</label>
                 <div className="relative">
@@ -78,7 +78,7 @@ const Books: React.FC = () => {
                     </tbody>
                 </table >
             </div>
-        </div >
+        </>
     );
 };
 

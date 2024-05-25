@@ -22,7 +22,7 @@ const Authors: React.FC = () => {
 
 
     return (
-        <div className="sm:rounded-lg w-1/2 mx-auto mt-4">
+        <>
             <div className="flex items-center py-2 justify-between">
                 <label htmlFor="table-search" className="sr-only">Search</label>
                 <div className="relative">
@@ -33,9 +33,9 @@ const Authors: React.FC = () => {
                     </div>
                     <input type="text" id="table-search" onChange={handleChangeFilter} className="block py-3 ps-10 text-sm border rounded-lg w-80 focus:ring-blue-500 focus:border-blue-500 " placeholder="Search for items" />
                 </div>
-                <button className="max-sm:w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <a href='/authors/create' className="max-sm:w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     + Add author
-                </button>
+                </a>
             </div>
             <hr />
             <div className='block max-h-[78dvh] overflow-y-auto'>
@@ -80,7 +80,7 @@ const Authors: React.FC = () => {
                     </tbody>
                 </table>
             </div>
-        </div >
+        </>
     );
 };
 

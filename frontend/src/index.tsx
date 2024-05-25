@@ -10,6 +10,7 @@ import Authors from 'pages/Authors/Authors';
 import Layout from 'components/Layout';
 
 import './index.css';
+import AuthorCreate from 'pages/Authors/AuthorCreate';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,12 @@ const router = createBrowserRouter([
       {
         path: "authors",
         element: <Authors />,
+
       },
+      {
+        path: "authors/create",
+        element: <AuthorCreate />,
+      }
     ]
   },
 

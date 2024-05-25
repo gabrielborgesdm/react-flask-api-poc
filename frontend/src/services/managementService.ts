@@ -1,6 +1,6 @@
 import { Book } from "types/book"
 import axios from "services/requestClientService"
-import { Author } from "types/author"
+import { Author, AuthorCreate } from "types/author"
 
 export default class ManagementService {
     baseUrl = process.env.REACT_APP_API_URL
@@ -37,5 +37,18 @@ export default class ManagementService {
         }
 
         return authors
+    }
+
+    createAuthor = async (data: AuthorCreate): Promise<Author | undefined> => {
+        try {
+            const url = `${this.baseUrl}/authors/`
+            const response = await axios.post(url, data)
+
+            return response.data
+        } catch (error) {
+            console.log(error)
+
+        }
+
     }
 }
