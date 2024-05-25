@@ -4,5 +4,11 @@ export interface Author {
     email?: string;
     nationality: string;
     birthDate?: string;
-    books: []
+}
+
+export interface AuthorCreate {
+    name?: string;
+    email?: string;
+    nationality?: string;
+    birthDate?: string;
 }

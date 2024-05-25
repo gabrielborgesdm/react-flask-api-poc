@@ -22,7 +22,7 @@ const Authors: React.FC = () => {
 
 
     return (
-        <div className="sm:rounded-lg w-1/2 mx-auto mt-4">
+        <>
             <div className="flex items-center py-2 justify-between">
                 <label htmlFor="table-search" className="sr-only">Search</label>
                 <div className="relative">
@@ -33,50 +33,54 @@ const Authors: React.FC = () => {
                     </div>
                     <input type="text" id="table-search" onChange={handleChangeFilter} className="block py-3 ps-10 text-sm border rounded-lg w-80 focus:ring-blue-500 focus:border-blue-500 " placeholder="Search for items" />
                 </div>
-                <button className="max-sm:w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <a href='/authors/create' className="max-sm:w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     + Add author
-                </button>
+                </a>
             </div>
             <hr />
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead className="text-xs uppercase ">
-                    <tr>
+            <div className='block max-h-[78dvh] overflow-y-auto'>
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <thead className="text-xs uppercase ">
+                        <tr>
 
-                        <th scope="col" className="px-1 py-3">
-                            Author
-                        </th>
-                        <th scope="col" className="px-1 py-3">
-                            Nationality
-                        </th>
-                        <th scope="col" className="px-1 py-3">
-                            Birth date
-                        </th>
-                        <th scope="col" className="px-1 py-3">
-                            E-mail
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>{authors?.length > 0 && authors.map(({ name, nationality, birthDate, email, id }: Author) => (
-                    shouldFilterInWith(name, nationality, birthDate, email, id)
-                    && (
-                        <tr key={id} className="border-b hover:bg-gray-50">
-                            <th scope="row" className="px-1 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                {name}
+                            <th scope="col" className="px-1 py-3">
+                                Author
                             </th>
-                            <td className="px-1 py-4">
-                                {nationality}
-                            </td>
-                            <td className="px-1 py-4">
-                                {birthDate}
-                            </td>
-                            <td className="px-1 py-4">
-                                {email}
-                            </td>
+                            <th scope="col" className="px-1 py-3">
+                                Nationality
+                            </th>
+                            <th scope="col" className="px-1 py-3">
+                                Birth date
+                            </th>
+                            <th scope="col" className="px-1 py-3">
+                                E-mail
+                            </th>
                         </tr>
-                    )
-                ))}</tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {authors?.length > 0 && authors.map(({ name, nationality, birthDate, email, id }: Author) => (
+                            shouldFilterInWith(name, nationality, birthDate, email, id)
+                            && (
+                                <tr key={id} className="border-b hover:bg-gray-50">
+                                    <th scope="row" className="px-1 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                        {name}
+                                    </th>
+                                    <td className="px-1 py-4">
+                                        {nationality}
+                                    </td>
+                                    <td className="px-1 py-4">
+                                        {birthDate}
+                                    </td>
+                                    <td className="px-1 py-4">
+                                        {email}
+                                    </td>
+                                </tr>
+                            )
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </>
     );
 };
 
