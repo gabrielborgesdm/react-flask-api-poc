@@ -7,3 +7,9 @@ export interface Book {
     authors: Author[],
     authorsNames?: string;
 }
+
+export interface BookCreate {
+    title: string;
+    pages?: number;
+    authors?: Author[],
+}
