@@ -1,11 +1,8 @@
-import AuthorForm from "components/AuthorForm";
+import AuthorForm from "pages/Authors/AuthorForm";
 import React from "react";
 
-
 const AuthorCreate: React.FC = () => {
-    return (
-        <AuthorForm />
-    )
-}
+  return <AuthorForm />;
+};
 
-export default AuthorCreate
+export default AuthorCreate;

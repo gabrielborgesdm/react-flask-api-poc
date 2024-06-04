@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Input from "./Form/Input";
+import { AuthorFormCreate } from "types/author";
+import Input from "../../components/Form/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import AuthorSchema from "./Schemas/AuthorSchema";
-import Form, { FormMessage } from "./Form/Form";
+import AuthorSchema from "../../components/Schemas/AuthorSchema";
+import Form, { FormMessage } from "../../components/Form/Form";
 import ManagementService from "services/managementService";
-import { AuthorFormCreate } from "types/author";
 
 const managementService = new ManagementService();
 
@@ -24,13 +24,12 @@ const AuthorForm: React.FC = () => {
   const onSubmit: SubmitHandler<AuthorFormCreate> = async (data: AuthorFormCreate) => {
     setIsLoading(true);
     const author = await managementService.createAuthor(data);
-    console.log(author, author === undefined);
+    if (author) onReset();
     setMessage({
-      value: author ? "Author created with success" : "It wansn't possible to create the author, try again",
+      value: author ? "Author created with success" : "It wasn't possible to create the author, try again",
       isError: author === undefined,
     });
     setIsLoading(false);
-    // onReset()
   };
 
   const onReset = () => {
@@ -48,13 +47,23 @@ const AuthorForm: React.FC = () => {
       isLoading={isLoading}
     >
       <>
-        <Input label="Author name" name="name" register={register} errorMessage={errors.name?.message} />
-
-        <Input label="Email address" name="email" register={register} errorMessage={errors.email?.message} />
-
-        <Input label="Nationality" name="nationality" register={register} errorMessage={errors.nationality?.message} />
-
-        <Input label="Birth date" name="birthDate" register={register} errorMessage={errors.birthDate?.message} />
+        <div className="sm:col-span-3">
+          <Input label="Author name" name="name" register={register} errorMessage={errors.name?.message} />
+        </div>
+        <div className="sm:col-span-3">
+          <Input label="Email address" name="email" register={register} errorMessage={errors.email?.message} />
+        </div>
+        <div className="sm:col-span-3">
+          <Input
+            label="Nationality"
+            name="nationality"
+            register={register}
+            errorMessage={errors.nationality?.message}
+          />
+        </div>
+        <div className="sm:col-span-3">
+          <Input label="Birth date" name="birthDate" register={register} errorMessage={errors.birthDate?.message} />
+        </div>
       </>
     </Form>
   );

@@ -1,9 +1,9 @@
-import axios from "axios"
+import axios from "axios";
 
 const getAxiosClient = () => {
-    axios.defaults.headers['Access-Control-Allow-Origin'] = "*"
+  axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 
-    return axios
-}
+  return axios;
+};
 
-export default getAxiosClient()
+export default getAxiosClient();
