@@ -6,9 +6,10 @@ import Books from "pages/Books/Books";
 import Authors from "pages/Authors/Authors";
 import Layout from "components/Layout";
 
-import "./index.css";
 import AuthorCreate from "pages/Authors/AuthorCreate";
 import BookCreate from "pages/Books/BookCreate";
+
+import "./index.css";
 
 const router = createBrowserRouter([
   {
