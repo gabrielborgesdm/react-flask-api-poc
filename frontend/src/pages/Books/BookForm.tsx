@@ -104,6 +104,8 @@ const BookForm: React.FC = () => {
 
     return (
       <div className="col-span-12">
+        <h1 className="text-base font-semibold leading-7 text-gray-900">Book&apos;s Authors</h1>
+        <hr className="mb-4" />
         <Table {...tableProps} />
       </div>
     );

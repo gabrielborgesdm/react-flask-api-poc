@@ -1,4 +1,4 @@
 [MASTER]
 disable=
-    C0114, C0115, R0903, C0413, C0116, C0415
+    C0114, C0115, R0903, C0413, C0116, C0415, F0001
 ignore-paths=migrations/
