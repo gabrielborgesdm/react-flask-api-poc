@@ -1,6 +1,6 @@
 from typing import Dict, List
-from werkzeug.exceptions import BadRequest
 from contextlib import contextmanager
+from werkzeug.exceptions import BadRequest
 
 from backend.app.models.model import db
 from backend.app.models.author_model import AuthorModel
