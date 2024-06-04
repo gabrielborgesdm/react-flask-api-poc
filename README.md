@@ -1,6 +1,6 @@
 # Bookstore Management System
 
-The Bookstore Management System is a web application designed to demonstrate the integration of various modern technologies and best practices in software development. This project serves as a showcase of how to effectively combine multiple tools and frameworks to create a robust, maintainable, and scalable application.
+The Bookstore Management System is a web application designed to demonstrate the integration of various modern technologies and best practices in software development. This project serves as a showcase of how to effectively combine multiple tools and frameworks to create a robust and maintainable application.
 
 ## Key Features
 
