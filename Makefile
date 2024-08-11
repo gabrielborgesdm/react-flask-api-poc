@@ -1,6 +1,6 @@
 BACKEND_CONTAINER_NAME=python_backend
 
-.PHONY: docker/start docker/start-build docker/clean backend/test backend/migrate backend/upgrade
+.PHONY: docker/start docker/start-build docker/clean backend/test backend/migrate backend/upgrade backend/init
 
 # Docker commands:
 
@@ -14,6 +14,9 @@ docker/clean:
 	docker compose down --volumes --rmi all
 
 # Backend commands:
+
+backend/init:
+	docker compose exec $(BACKEND_CONTAINER_NAME) python3 -m flask --app main db init
 
 backend/migrate:
 	@if [ "$(message)" = "" ]; then \

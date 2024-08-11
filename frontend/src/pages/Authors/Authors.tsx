@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import ManagementService from "services/managementService";
 import { useFilterHook } from "components/Hooks/UseFilterHook";
 import { Author } from "types/author";
+import useSWR from "swr";
 
 const managementService = new ManagementService();
 
 const Authors: React.FC = () => {
-  const [authors, setAuthors] = useState<Author[]>([]);
-  const { handleChangeFilter, shouldFilterInWith } = useFilterHook();
+  const { filter, setFilter, isFilterFoundInProperties } = useFilterHook();
+  const { data: authorsData, isLoading } = useSWR("authors", () => managementService.getAuthors());
 
-  useEffect(() => {
-    loadAuthors();
-  }, []);
+  const filteredAuthors = useMemo(() => {
+    if (!filter) return authorsData;
 
-  const loadAuthors = async () => {
-    const authors = await managementService.getAuthors();
-
-    setAuthors(authors);
-  };
+    return authorsData?.filter(({ name, nationality, birthDate, email, id }: Author) =>
+      isFilterFoundInProperties(name, nationality, birthDate, email, id),
+    );
+  }, [authorsData, filter]);
 
   return (
     <>
@@ -46,7 +45,7 @@ const Authors: React.FC = () => {
           <input
             type="text"
             id="table-search"
-            onChange={handleChangeFilter}
+            onChange={(e) => setFilter(e.target.value)}
             className="block py-3 ps-10 text-sm border rounded-lg w-80 focus:ring-blue-500 focus:border-blue-500 "
             placeholder="Search for items"
           />
@@ -60,40 +59,44 @@ const Authors: React.FC = () => {
       </div>
       <hr />
       <div className="block max-h-[78dvh] overflow-y-auto">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-          <thead className="text-xs uppercase ">
-            <tr>
-              <th scope="col" className="px-1 py-3">
-                Author
-              </th>
-              <th scope="col" className="px-1 py-3">
-                Nationality
-              </th>
-              <th scope="col" className="px-1 py-3">
-                Birth date
-              </th>
-              <th scope="col" className="px-1 py-3">
-                E-mail
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {authors?.length > 0 &&
-              authors.map(
-                ({ name, nationality, birthDate, email, id }: Author) =>
-                  shouldFilterInWith(name, nationality, birthDate, email, id) && (
-                    <tr key={id} className="border-b hover:bg-gray-50">
-                      <th scope="row" className="px-1 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        {name}
-                      </th>
-                      <td className="px-1 py-4">{nationality}</td>
-                      <td className="px-1 py-4">{birthDate}</td>
-                      <td className="px-1 py-4">{email}</td>
-                    </tr>
-                  ),
-              )}
-          </tbody>
-        </table>
+        {filteredAuthors && filteredAuthors.length > 0 ? (
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+            <thead className="text-xs uppercase ">
+              <tr>
+                <th scope="col" className="px-1 py-3">
+                  Author
+                </th>
+                <th scope="col" className="px-1 py-3">
+                  Nationality
+                </th>
+                <th scope="col" className="px-1 py-3">
+                  Birth date
+                </th>
+                <th scope="col" className="px-1 py-3">
+                  E-mail
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredAuthors.map(({ id, name, nationality, birthDate, email }) => (
+                <>
+                  <tr key={id} className="border-b hover:bg-gray-50">
+                    <th scope="row" className="px-1 py-4 font-medium text-gray-900 whitespace-nowrap">
+                      {name}
+                    </th>
+                    <td className="px-1 py-4">{nationality}</td>
+                    <td className="px-1 py-4">{birthDate}</td>
+                    <td className="px-1 py-4">{email}</td>
+                  </tr>
+                </>
+              ))}
+            </tbody>
+          </table>
+        ) : isLoading ? (
+          <span>Loading...</span>
+        ) : (
+          <span className="pt-5">No authors registered</span>
+        )}
       </div>
     </>
   );

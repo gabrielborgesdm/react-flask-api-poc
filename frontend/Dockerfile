@@ -4,6 +4,7 @@ FROM node:20
 # Set the working directory in the container
 WORKDIR /frontend
 
+
 # Copy the current directory contents into the container at /app
 COPY . /frontend
 
@@ -12,6 +13,4 @@ RUN npm install
 
 EXPOSE 3000
 
-# Command to run the Python script
-
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
