@@ -37,6 +37,8 @@ Frontend Application (React): Provides a user-friendly interface for browsing an
 
 2. To start the services run `make docker/start`
 
+3. After starting the services, run the following make commands to setup the database and schemas: `backend/init`, `backend/migration`, `backend/upgrade`
+
 ### Makefile Commands
 
 This Makefile provides convenient targets to automate common development tasks.
@@ -46,6 +48,8 @@ This Makefile provides convenient targets to automate common development tasks.
 - **docker/start-build**: Starts Docker containers and rebuilds images.
 
 - **docker/clean**: Remove volumes and delete all images associated with the containers defined in the `docker-compose.yml` file.
+
+- **backend/init**: Inits Flask migration folder.
 
 - **backend/migrate**: Runs Flask migration with a specified message.
 
