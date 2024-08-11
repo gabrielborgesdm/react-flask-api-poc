@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ManagementService from "services/managementService";
 import { useFilterHook } from "components/Hooks/UseFilterHook";
 import { Author } from "types/author";
@@ -7,8 +7,16 @@ import useSWR from "swr";
 const managementService = new ManagementService();
 
 const Authors: React.FC = () => {
-  const { handleChangeFilter, shouldFilterInWith } = useFilterHook();
-  const { data: authorsData, error, isLoading } = useSWR("authors", () => managementService.getAuthors());
+  const { filter, setFilter, isFilterFoundInProperties } = useFilterHook();
+  const { data: authorsData, isLoading } = useSWR("authors", () => managementService.getAuthors());
+
+  const filteredAuthors = useMemo(() => {
+    if (!filter) return authorsData;
+
+    return authorsData?.filter(({ name, nationality, birthDate, email, id }: Author) =>
+      isFilterFoundInProperties(name, nationality, birthDate, email, id),
+    );
+  }, [authorsData, filter]);
 
   return (
     <>
@@ -37,7 +45,7 @@ const Authors: React.FC = () => {
           <input
             type="text"
             id="table-search"
-            onChange={handleChangeFilter}
+            onChange={(e) => setFilter(e.target.value)}
             className="block py-3 ps-10 text-sm border rounded-lg w-80 focus:ring-blue-500 focus:border-blue-500 "
             placeholder="Search for items"
           />
@@ -51,7 +59,7 @@ const Authors: React.FC = () => {
       </div>
       <hr />
       <div className="block max-h-[78dvh] overflow-y-auto">
-        {authorsData && authorsData.length > 0 ? (
+        {filteredAuthors && filteredAuthors.length > 0 ? (
           <table className="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead className="text-xs uppercase ">
               <tr>
@@ -70,19 +78,18 @@ const Authors: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {authorsData.map(
-                ({ name, nationality, birthDate, email, id }: Author) =>
-                  shouldFilterInWith(name, nationality, birthDate, email, id) && (
-                    <tr key={id} className="border-b hover:bg-gray-50">
-                      <th scope="row" className="px-1 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        {name}
-                      </th>
-                      <td className="px-1 py-4">{nationality}</td>
-                      <td className="px-1 py-4">{birthDate}</td>
-                      <td className="px-1 py-4">{email}</td>
-                    </tr>
-                  ),
-              )}
+              {filteredAuthors.map(({ id, name, nationality, birthDate, email }) => (
+                <>
+                  <tr key={id} className="border-b hover:bg-gray-50">
+                    <th scope="row" className="px-1 py-4 font-medium text-gray-900 whitespace-nowrap">
+                      {name}
+                    </th>
+                    <td className="px-1 py-4">{nationality}</td>
+                    <td className="px-1 py-4">{birthDate}</td>
+                    <td className="px-1 py-4">{email}</td>
+                  </tr>
+                </>
+              ))}
             </tbody>
           </table>
         ) : isLoading ? (

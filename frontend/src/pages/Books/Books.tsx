@@ -7,7 +7,7 @@ const managementService = new ManagementService();
 
 const Books: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
-  const { handleChangeFilter, shouldFilterInWith } = useFilterHook();
+  const { setFilter, isFilterFoundInProperties } = useFilterHook();
 
   useEffect(() => {
     loadBooks();
@@ -49,7 +49,7 @@ const Books: React.FC = () => {
           <input
             type="text"
             id="table-search"
-            onChange={handleChangeFilter}
+            onChange={(e) => setFilter(e.target.value)}
             className="block py-3 ps-10 text-sm border rounded-lg w-80 focus:ring-blue-500 focus:border-blue-500 "
             placeholder="Search for items"
           />
@@ -81,7 +81,7 @@ const Books: React.FC = () => {
             {books?.length > 0 &&
               books.map(
                 ({ id, title, pages, authorsNames }: Book) =>
-                  shouldFilterInWith(title, pages, id, authorsNames) && (
+                  isFilterFoundInProperties(title, pages, id, authorsNames) && (
                     <tr key={id} className="border-b hover:bg-gray-50">
                       <th scope="row" className="px-1 py-4 font-medium text-gray-900 whitespace-nowrap">
                         {title}
