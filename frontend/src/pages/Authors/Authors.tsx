@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ManagementService from "services/managementService";
 import { useFilterHook } from "components/Hooks/UseFilterHook";
 import { Author } from "types/author";
+import useSWR from "swr";
 
 const managementService = new ManagementService();
 
 const Authors: React.FC = () => {
-  const [authors, setAuthors] = useState<Author[]>([]);
   const { handleChangeFilter, shouldFilterInWith } = useFilterHook();
-
-  useEffect(() => {
-    loadAuthors();
-  }, []);
-
-  const loadAuthors = async () => {
-    const authors = await managementService.getAuthors();
-
-    setAuthors(authors);
-  };
+  const { data: authorsData, error, isLoading } = useSWR("authors", () => managementService.getAuthors());
 
   return (
     <>
@@ -60,26 +51,26 @@ const Authors: React.FC = () => {
       </div>
       <hr />
       <div className="block max-h-[78dvh] overflow-y-auto">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-          <thead className="text-xs uppercase ">
-            <tr>
-              <th scope="col" className="px-1 py-3">
-                Author
-              </th>
-              <th scope="col" className="px-1 py-3">
-                Nationality
-              </th>
-              <th scope="col" className="px-1 py-3">
-                Birth date
-              </th>
-              <th scope="col" className="px-1 py-3">
-                E-mail
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {authors?.length > 0 &&
-              authors.map(
+        {authorsData && authorsData.length > 0 ? (
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+            <thead className="text-xs uppercase ">
+              <tr>
+                <th scope="col" className="px-1 py-3">
+                  Author
+                </th>
+                <th scope="col" className="px-1 py-3">
+                  Nationality
+                </th>
+                <th scope="col" className="px-1 py-3">
+                  Birth date
+                </th>
+                <th scope="col" className="px-1 py-3">
+                  E-mail
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {authorsData.map(
                 ({ name, nationality, birthDate, email, id }: Author) =>
                   shouldFilterInWith(name, nationality, birthDate, email, id) && (
                     <tr key={id} className="border-b hover:bg-gray-50">
@@ -92,8 +83,13 @@ const Authors: React.FC = () => {
                     </tr>
                   ),
               )}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        ) : isLoading ? (
+          <span>Loading...</span>
+        ) : (
+          <span className="pt-5">No authors registered</span>
+        )}
       </div>
     </>
   );
